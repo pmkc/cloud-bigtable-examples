@@ -24,4 +24,6 @@
   <property><name>google.bigtable.project.id</name><value>${bigtable.projectID}</value></property>
   <property><name>google.bigtable.instance.id</name><value>${bigtable.instanceID}</value></property>
   <property><name>hbase.client.connection.impl</name><value>${bigtable.connection}</value></property>
+  <property><name>google.bigtable.endpoint.host</name><value>test-bigtable.sandbox.googleapis.com</value></property>
+  <property><name>google.bigtable.admin.endpoint.host</name><value>test-bigtableadmin.sandbox.googleapis.com</value></property>
 </configuration>

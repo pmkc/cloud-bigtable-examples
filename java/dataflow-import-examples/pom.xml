@@ -30,19 +30,8 @@ permissions and limitations under the License.
   </parent>
 
   <properties>
-    <bigtable.hbase.version>0.9.4</bigtable.hbase.version>
+    <bigtable.hbase.version>0.9.5-SNAPSHOT</bigtable.hbase.version>
     <slf4j.version>1.7.21</slf4j.version>
-
-    <bigtable.projectID>bigtable_project_id</bigtable.projectID>
-    <bigtable.instanceID>bigtable_instance_id</bigtable.instanceID>
-
-    <bigtable.table>bigtable_table_name</bigtable.table>
-    <dataflow.project>${bigtable.projectID}</dataflow.project>
-
-    <dataflow.staging.location>gs://staging_folder_name</dataflow.staging.location>
-    <file.pattern>name_or_prefix_of_data_file</file.pattern>
-    <dataflow.runner>BlockingDataflowPipelineRunner</dataflow.runner>
-    <sequencefile.format.094>false</sequencefile.format.094>
 
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -116,47 +105,5 @@ permissions and limitations under the License.
         <artifactId>slf4j-simple</artifactId>
         <version>${slf4j.version}</version>
     </dependency>
-
   </dependencies>
-
-  <profiles>
-    <profile>
-      <id>ImportByDataflow</id>
-      <activation>
-        <property>
-          <name>ImportByDataflow</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <version>1.4.0</version>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-classpath</argument>
-                <classpath/>
-                <argument>com.google.cloud.bigtable.dataflow.example.ImportByDataflow</argument>
-                <argument>--runner=${dataflow.runner}</argument>
-                <argument>--project=${dataflow.project}</argument>
-                <argument>--bigtableProjectId=${bigtable.projectID}</argument>
-                <argument>--bigtableInstanceId=${bigtable.instanceID}</argument>
-                <argument>--bigtableTableId=${bigtable.table}</argument>
-                <argument>--stagingLocation=${dataflow.staging.location}</argument>
-                <argument>--filePattern=${file.pattern}</argument>
-                <!-- Optional argument to set desired number of workers. Default is 3. -->
-                <argument>--numWorkers=3</argument>
-                <!-- Optional arguement indicating input file is in HBase 0.94 format. Default is false -->
-                <argument>--HBase094DataFormat=${sequencefile.format.094}</argument>
-                <!-- Optional argument to specify GCE vm type. default is n1-standard-1 -->
-                <argument>--workerMachineType=n1-standard-1</argument>
-              </arguments>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
